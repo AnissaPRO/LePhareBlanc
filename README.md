@@ -14,8 +14,8 @@ Le projet utilise Docker pour isoler le Front (React) et le Back (C#/SQL).
 
 ## Stratégie de Versioning & Branches
 Nous suivons le **Semantic Versioning** (v1.0.0) :
-- `feat/` : Nouvelles fonctionnalités (Profil, Badges).
-- `fix/` : Corrections.
-- `docs/` : Amélioration de la documentation.
+- `feat/issue-[ID]-[nom]` : Nouvelles fonctionnalités (Profil, Badges).
+- `fix/issue-[ID]-[nom]`   : Corrections.
+- `docs/issue-[ID]-[nom]` : Amélioration de la documentation.
   
 Toute Pull Request doit être validée par le binôme (Front/Back) avant fusion dans `main`.
