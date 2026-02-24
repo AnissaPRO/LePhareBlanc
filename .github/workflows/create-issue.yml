@@ -15,5 +15,5 @@ jobs:
           body: "Ce ticket a été généré automatiquement suite à la création de la branche `${{ github.event.ref }}`. Merci de lier cette Issue à une US existante."
           labels: "Automation, In Progress"
           project: "Le Phare Blanc" 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
+       env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
