@@ -17,7 +17,7 @@ Pour toute nouvelle idée ou fonctionnalité non répertoriée :
 
 ### Travail sur un ticket existant
 Si vous travaillez sur une sous-tâche déjà présente dans le backlog :
-- Nommez votre branche : `issue-[ID]-[nom_court]` (ex: `issue-12-api-auth`).
+- Nommez votre branche : `issue-[ID]-[nom_court]` (ex: `issue-12-api-auth` sans les crochets !).
 - L'automation ignorera cette branche pour éviter les doublons de tickets.
 
 ---
