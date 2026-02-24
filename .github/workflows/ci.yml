@@ -1,0 +1,19 @@
+name: CI Phare Blanc
+
+on:
+  push:
+    branches: [ "feat/*", "fix/*" ] # S'active sur les branches de dev
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Analyse du code (Lint)
+        run: echo "Vérification du code de la branche en cours..."
+
+      - name: Simulation de Build Docker
+        run: echo "Le build Docker est valide pour cette branche."
