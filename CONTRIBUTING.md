@@ -1,3 +1,24 @@
+# Guide de Contribution 
+
+Merci de vouloir contribuer au projet **Le Phare Blanc** ! Pour maintenir la qualité du code, merci de suivre ces étapes.
+
+## Installation du projet
+Pour configurer votre environnement de développement local :
+
+1. **Cloner le dépôt :**
+   ```bash
+   git clone [https://github.com/AnissaPRO/LePhareBlanc.git]
+   cd LePhareBlanc
+
+2. **Installer les dépendances :**
+   ```bash
+   npm install
+
+3. **Lancer le projet :**
+   ```bash
+   npm start
+
+
 # pipelines
 
 ## main.yml
@@ -8,15 +29,21 @@ La pipeline *main.yml* permet de vérifier la bonne syntaxe du code sur les bran
 * fix/{nom du fix}
 * docs/{élément ajouter à la documentation}
 
-
-
 ## create-issue.yml
-La pipeline *create-issue.yml* va crée une nouvelle issue pour chaque branche crée, l'issue crée servira de pont entre une US/Epic créé et devra donc être liés entre elles.
+La pipeline *create-issue.yml* va crée une nouvelle issue pour chaque branche crée, l'issue crée servira de pont entre une US/Epic créé et devra donc être liés entre elles. Elle a été mise en place pour les branches fix/ qui necessite une prise en charge rapide lorsque l'on a un problème dans notre code.
 
 # Issues
 
 ## Suivi de travail:
-Aucun logiciel de suivi de travail ne sera utilisé pour ce projet. Il est donc important de rédiger des issues propres, de faire un suivi sur celles- ci régulièrement. Ces Issues serviront donc d'outils de suivi des tâches. Pour un suivi plus structuré voir [la roadmap](https://github.com/users/AnissaPRO/projects/4).
+Nous avons utilisé GitHub Projects. 
+GitHub Projects permet de voir notre backlog sous plusieurs angles, ce qui est crucial pour le suivi :
+
+Tableaux Kanban : Pour voir l'état d'avancement (À faire, En cours, Terminé).
+
+Listes : Pour une vue condensée du backlog, idéale pour les réunions de planification.
+
+Tableaux de bord : Pour ajouter des champs personnalisés (Estimation de temps, Priorité haute/basse, Itération/Sprint).
+On peux le retrouver à cette adresse : https://github.com/users/AnissaPRO/projects
 
 ## Issue template : 
 
