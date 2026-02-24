@@ -24,13 +24,6 @@ Nous suivons le **Semantic Versioning** (v1.0.0) :
   
 Toute Pull Request doit être validée par le binôme (Front/Back) avant fusion dans `main`.
 
-
-## Structure du projet
-- `frontend/` : Application React/Next (Port 3000)
-- `backend/` : API Node/Python (Port 8000)
-- `.github/workflows/` : Automations (CI & Création de tickets)
-- `docker-compose.yml` : Orchestration des services
-
 ## Workflow & Automations 
 Nous avons mis en place une gestion de projet automatisée :
 
