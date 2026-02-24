@@ -13,7 +13,7 @@ Pour toute nouvelle idée ou fonctionnalité non répertoriée :
 1. Créez une branche localement avec le préfixe `feat/` (ex: `feat/systeme-badges`).
 2. Pushez la branche sur le dépôt distant.
 3. **Automation :** Un ticket (Issue) sera automatiquement créé sur le Board GitHub.
-4. Liez manuellement ce ticket à l'Epic correspondante dans le projet.
+4. Liez manuellement ce ticket à l'Epic correspondante dans le projet.  <span style="color:red">**→ Ne marche pas pour le moment**</span>
 
 ### Travail sur un ticket existant
 Si vous travaillez sur une sous-tâche déjà présente dans le backlog :
