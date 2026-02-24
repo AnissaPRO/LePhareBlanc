@@ -1,7 +1,7 @@
 ---
 name: EPIC
 about: Template pour les Epics
-title: ''
+title: '[EPIC] [{scope}] {titre}'
 labels: Epic
 assignees: ''
 

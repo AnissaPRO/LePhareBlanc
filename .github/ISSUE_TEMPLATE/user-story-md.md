@@ -1,7 +1,7 @@
 ---
 name: User story.md
 about: Un template pour les user story
-title: ''
+title: '[US] {titre}'
 labels: ''
 assignees: ''
 
