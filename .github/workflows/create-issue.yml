@@ -1,0 +1,19 @@
+name: Create Issue from Branch
+
+on:
+  create: # Se déclenche quand une branche ou un tag est créé
+
+jobs:
+  create_issue:
+    if: github.event.ref_type == 'branch' && startsWith(github.event.ref, 'feat/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          title: "Dev en cours sur : ${{ github.event.ref }}"
+          body: "Ce ticket a été généré automatiquement suite à la création de la branche `${{ github.event.ref }}`. Merci de lier cette Issue à une US existante."
+          labels: "Automation, In Progress"
+          project: "Le Phare Blanc" 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
