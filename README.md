@@ -10,7 +10,7 @@ Le projet se veut être un guide (un phare) dans le brouillard des sucres caché
 [![Board Project](https://img.shields.io/badge/GitHub-Project_Board-blue?logo=github)](https://github.com/users/AnissaPRO/projects/4)
 [![CI Pipeline](https://img.shields.io/badge/CI-GitHub_Actions-green?logo=github-actions)](https://github.com/AnissaPRO/LePhareBlanc/actions)
 
-## Installation (Setup)
+## Quick Start
 Le projet utilise Docker pour isoler le Front (React) et le Back (C#/SQL).
 1. `git clone https://github.com/AnissaPRO/LePhareBlanc`
 2. `docker-compose up --build`
