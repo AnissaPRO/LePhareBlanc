@@ -1,4 +1,4 @@
-# Guidelines de Contribution - Le Phare Blanc
+# Guide de Contribution - Le Phare Blanc
 
 Bienvenue sur le projet ! Pour maintenir une qualité de code optimale et assurer le bon fonctionnement de nos automatisations, merci de respecter les règles suivantes.
 
