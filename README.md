@@ -7,8 +7,8 @@ Le projet se veut être un guide (un phare) dans le brouillard des sucres caché
 - **Fonctionnalité principale :** Un centre de ressources collaboratif où les utilisateurs dénoncent les pratiques industrielles et s'entraident.
 - **Philosophie :** Priorité à la bienveillance et à l'action collective plutôt qu'au simple calcul de calories.
 
-[![Board Project] : https://github.com/users/AnissaPRO/projects/4
-[![CI Pipeline] : https://github.com/AnissaPRO/LePhareBlanc/actions
+[![Board Project](https://img.shields.io/badge/GitHub-Project_Board-blue?logo=github)](https://github.com/users/AnissaPRO/projects/4)
+[![CI Pipeline](https://img.shields.io/badge/CI-GitHub_Actions-green?logo=github-actions)](https://github.com/AnissaPRO/LePhareBlanc/actions)
 
 ## Installation (Setup)
 Le projet utilise Docker pour isoler le Front (React) et le Back (C#/SQL).
@@ -33,16 +33,21 @@ Hiérarchie : Structure en 4 EPICS avec sous-tâches Front/Back liées.
 
 CI/CD : Analyse automatique du code à chaque Pull Request.
 
-[!IMPORTANT]
-Consultez nos Guidelines de contribution pour le détail du branching (SemVer) et des conventions de commits.
+> [!IMPORTANT]
+> Consultez nos **[Guidelines de contribution](./GUIDELINES.md)** pour le détail du branching (SemVer) et des conventions de commits.
 
 ## Gestion de Projet
-Le suivi est centralisé sur notre Board Kanban :
+Le suivi est centralisé sur notre Board Kanban : https://github.com/users/AnissaPRO/projects/4/views/1
 
-Backlog : Vision long terme.
+Backlog : Vision long terme 
 
 Sprint 0 : Initialisation technique et infrastructure.
 
+
+On peux également visualiser notre backlog sous forme de liste avec plus de détails comme : https://github.com/users/AnissaPRO/projects/4/views/2
+
 Estimations : Charge de travail évaluée en points.
+
+Prioritée : Importance du ticket. 
 
 Nous avons crée des templates pour la création des Epics ainsi que des US pour faciliter les pré recquis que ces tickets devront disposer.
