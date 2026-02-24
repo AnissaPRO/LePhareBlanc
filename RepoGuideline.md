@@ -11,7 +11,7 @@ La pipeline *main.yml* permet de vérifier la bonne syntaxe du code sur les bran
 
 
 ## create-issue.yml
-La pipeline *create-issue.yml* va créer une nouvelle issue pour chaque branche créait, l'issue créais servira de pont entre une US/Epic créé et devra donc être liés entre elles.
+La pipeline *create-issue.yml* va crée une nouvelle issue pour chaque branche crée, l'issue crée servira de pont entre une US/Epic créé et devra donc être liés entre elles.
 
 # Issues
 
