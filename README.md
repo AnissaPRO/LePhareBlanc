@@ -8,7 +8,7 @@ Le projet se veut être un guide (un phare) dans le brouillard des sucres caché
 
 ## Installation (Setup)
 Le projet utilise Docker pour isoler le Front (React) et le Back (C#/SQL).
-1. `git clone https://github.com/votre-repo/le-phare-blanc.git](https://github.com/AnissaPRO/LePhareBlanc`
+1. `git clone https://github.com/AnissaPRO/LePhareBlanc`
 2. `docker-compose up --build`
 3. Accès : Front sur `localhost:3000`, API sur `localhost:8000`.
 
