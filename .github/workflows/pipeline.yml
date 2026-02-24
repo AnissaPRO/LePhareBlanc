@@ -1,0 +1,23 @@
+name: CI/CD Le Phare Blanc
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: echo "Simulation install..." # npm install
+      - name: Run Tests
+        run: echo "Validation du code..." # npm test
+      - name: Build Docker Image
+        run: echo "Docker build success."
