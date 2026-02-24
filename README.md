@@ -1,6 +1,6 @@
 #  Le Phare Blanc
 
-## Contexte & Vision
+## Contexte
 **Le Phare Blanc** est une plateforme communautaire dédiée à la transparence sur l'industrie du sucre. 
 Le projet se veut être un guide (un phare) dans le brouillard des sucres cachés. 
 - **Fonctionnalité principale :** Un centre de ressources collaboratif où les utilisateurs (les "Gardiens") dénoncent les pratiques industrielles et s'entraident.
