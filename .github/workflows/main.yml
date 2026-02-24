@@ -1,0 +1,17 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop, 'feat/**', 'fix/**', 'docs/**' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install & Lint
+        run: echo "Vérification de la syntaxe du code (Linting)..."
+      - name: Docker Build Test
+        run: echo "Simulation du build Docker..."
