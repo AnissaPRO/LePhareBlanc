@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import ArticlesList from './components/ArticlesList';
 
 function App() {
   const [apiStatus, setApiStatus] = useState('Chargement...');
 
   useEffect(() => {
-    fetch('/api') // Le proxy ou docker-compose redirigera vers le backend
+    fetch('/api')
       .then(res => {
-        if (res.ok) return "Backend Connecté 🟢"; 
+        if (res.ok) {
+           return res.text().then(text => "Backend Connecté 🟢");
+        }
         return "Erreur Backend 🔴";
       })
       .then(msg => setApiStatus(msg))
@@ -18,12 +21,16 @@ function App() {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       maxWidth: '800px',
       margin: '0 auto',
-      padding: '40px 20px',
-      textAlign: 'center',
+      padding: '20px',
+      backgroundColor: '#fbfbfb',
+      minHeight: '100vh',
       color: '#333'
     },
     header: {
-      marginBottom: '40px'
+      textAlign: 'center',
+      marginBottom: '40px',
+      paddingBottom: '20px',
+      borderBottom: '1px solid #eaeaea'
     },
     title: {
       fontSize: '2.5rem',
@@ -35,21 +42,11 @@ function App() {
       color: '#7f8c8d',
       fontWeight: '300'
     },
-    card: {
-      backgroundColor: '#fff',
-      borderRadius: '8px',
-      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-      padding: '30px',
-      marginTop: '30px',
-      border: '1px solid #eaeaea'
-    },
     status: {
+      marginTop: '10px',
+      fontSize: '0.9rem',
       fontWeight: 'bold',
-      marginTop: '20px',
-      padding: '10px',
-      backgroundColor: '#f8f9fa',
-      borderRadius: '4px',
-      display: 'inline-block'
+      color: apiStatus.includes('🟢') ? '#27ae60' : '#c0392b'
     }
   };
 
@@ -60,20 +57,11 @@ function App() {
         <p style={styles.subtitle}>
           Guidons les consommateurs dans le brouillard des sucres cachés.
         </p>
+        <div style={styles.status}>Statut API : {apiStatus}</div>
       </header>
       
       <main>
-        <section style={styles.card}>
-          <h2>Bienvenue sur le prototype</h2>
-          <p>
-            Cette plateforme collaborative permet de signaler les produits industriels 
-            trompeurs et d'aider la communauté à mieux consommer.
-          </p>
-          
-          <div style={styles.status}>
-            Statut API : {apiStatus}
-          </div>
-        </section>
+         <ArticlesList />
       </main>
     </div>
   );
