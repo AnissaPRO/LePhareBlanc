@@ -5,6 +5,9 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const app = express();
 const PORT = 8000;
 
+// Middleware pour lire le JSON 
+app.use(express.json());
+
 // --- CONFIGURATION SWAGGER ---
 const swaggerOptions = {
     definition: {
@@ -12,15 +15,17 @@ const swaggerOptions = {
         info: {
             title: 'API Le Phare Blanc',
             version: '1.0.0',
-            description: 'Documentation de l\'API pour le POC Le Phare Blanc (Coordination Front-Back)',
+            description: 'Documentation POC - Coordination Front-Back & DDD',
         },
         servers: [
             {
                 url: `http://localhost:${PORT}`,
+                description: 'Serveur de développement Local',
             },
         ],
     },
-    apis: ['./server.js'], 
+    // Utilisation de __filename pour éviter les erreurs de majuscules sur Docker/Linux
+    apis: [__filename], 
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -35,27 +40,41 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  * description: Page d'accueil de l'API
  * responses:
  * 200:
- * description: Retourne le nom de l'API.
+ * description: Succès
  */
 app.get('/', (req, res) => {
-    res.send('<h1>API Le Phare Blanc</h1><p>Statut : Opérationnel</p><p>Allez sur <a href="/api-docs">/api-docs</a> pour la documentation.</p>');
+    res.send(`
+        <h1>API Le Phare Blanc</h1>
+        <p>Statut : 🟢 Opérationnel</p>
+        <p>Accéder à la <a href="/api-docs">Documentation Swagger (UI)</a></p>
+    `);
 });
 
 /**
  * @openapi
  * /status:
  * get:
- * description: Route pour le stagiaire - Vérification du statut
+ * description: Vérification du statut du serveur
  * responses:
  * 200:
- * description: Succès
+ * description: OK
  */
 app.get('/status', (req, res) => {
-    res.json({ status: "ok", message: "Le Phare Blanc est en ligne" });
+    res.json({ 
+        status: "ok", 
+        message: "Le Phare Blanc répond correctement",
+        timestamp: new Date()
+    });
 });
 
-// --- LANCEMENT ---
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur http://localhost:${PORT}`);
-    console.log(`Documentation Swagger sur http://localhost:${PORT}/api-docs`);
+// --- LANCEMENT DU SERVEUR ---
+// On écoute sur 0.0.0.0 pour Docker
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`SERVEUR DÉMARRÉ SUR LE PORT ${PORT}`);
+    console.log(`SWAGGER : http://localhost:${PORT}/api-docs`);
 });
+
+// Simulation de connexion DB (pour ne pas bloquer le serveur si elle échoue)
+setTimeout(() => {
+    console.log("Tentative de connexion à PostgreSQL...");
+}, 2000);
