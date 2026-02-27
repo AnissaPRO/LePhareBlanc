@@ -50,11 +50,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 /**
  * @openapi
  * /:
- * get:
- * description: Page d'accueil de l'API
- * responses:
- * 200:
- * description: Succès
+ *   get:
+ *     description: Page d'accueil de l'API
+ *     responses:
+ *       200:
+ *         description: Succès
  */
 app.get('/', (req, res) => {
     res.send(`
@@ -67,20 +67,20 @@ app.get('/', (req, res) => {
 /**
  * @openapi
  * /db-test:
- * post:
- * description: Tester la persistance en base de données
- * requestBody:
- * required: true
- * content:
- * application/json:
- * schema:
- * type: object
- * properties:
- * message:
- * type: string
- * responses:
- * 201:
- * description: Message enregistré en base !
+ *   post:
+ *     description: Tester la persistance en base de données
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               message:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Message enregistré en base !
  */
 app.post('/db-test', async (req, res) => {
     try {
@@ -98,11 +98,11 @@ app.post('/db-test', async (req, res) => {
 /**
  * @openapi
  * /status:
- * get:
- * description: Vérification du statut du serveur
- * responses:
- * 200:
- * description: OK
+ *   get:
+ *     description: Vérification du statut du serveur
+ *     responses:
+ *       200:
+ *         description: OK
  */
 app.get('/status', (req, res) => {
     res.json({ 
