@@ -7,7 +7,7 @@ Pour configurer votre environnement de développement local :
 
 1. **Cloner le dépôt :**
    ```bash
-   git clone [https://github.com/AnissaPRO/LePhareBlanc.git]
+   git clone https://github.com/AnissaPRO/LePhareBlanc.git
    cd LePhareBlanc
 
 2. **Lancer le projet :**

@@ -20,6 +20,9 @@ Si vous travaillez sur une sous-tâche déjà présente dans le backlog :
 - Nommez votre branche : `issue-[ID]-[nom_court]` (ex: `issue-12-api-auth` sans les crochets !).
 - L'automation ignorera cette branche pour éviter les doublons de tickets.
 
+**Code & Doc** : Développer la feature et mettre à jour Swagger (Back) ou Storybook (Front).
+**PR** : Ouvrir une Pull Request. Une personne doit la valider pour pouvoir push.
+
 ---
 
 ## 2. Standards de Commits
