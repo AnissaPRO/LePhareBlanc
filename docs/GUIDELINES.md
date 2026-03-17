@@ -8,15 +8,19 @@ Bienvenue sur le projet ! Pour maintenir une qualité de code optimale et assure
 
 Notre projet utilise une automatisation **Branch-First**.
 
-### Création d'une nouvelle fonctionnalité   <span style="color:red">**→ Ne marche pas pour le moment**</span>
+### Création d'une nouvelle fonctionnalité <span style="color:red">**→ Ne marche pas pour le moment**</span>
+
 Pour toute nouvelle idée ou fonctionnalité non répertoriée :
+
 1. Créez une branche localement avec le préfixe `feat/` (ex: `feat/systeme-badges`).
 2. Pushez la branche sur le dépôt distant.
 3. **Automation :** Un ticket (Issue) sera automatiquement créé sur le Board GitHub.
-4. Liez manuellement ce ticket à l'Epic correspondante dans le projet. 
+4. Liez manuellement ce ticket à l'Epic correspondante dans le projet.
 
 ### Travail sur un ticket existant
+
 Si vous travaillez sur une sous-tâche déjà présente dans le backlog :
+
 - Nommez votre branche : `issue-[ID]-[nom_court]` (ex: `issue-12-api-auth` sans les crochets !).
 - L'automation ignorera cette branche pour éviter les doublons de tickets.
 
@@ -48,7 +52,25 @@ Pour garantir la parité des environnements, l'usage de **Docker** est obligatoi
 
 ---
 
-## 4. Processus de Review
+## 4. Standard d'Error Management
+
+Pour garantir une synchronisation fluide entre le **Front-end** et le **Back-end**, ainsi qu'une expérience utilisateur (UX) de qualité, nous imposons un format JSON standardisé pour toutes les réponses d'erreur.
+
+### Format de réponse
+
+Toutes les erreurs doivent être retournées sous la forme d'un objet JSON suivant cette structure :
+
+```json
+{
+  "code": "ERR_TYPE_NAME",
+  "message": "Message explicite et lisible par l'utilisateur",
+  "severity": "warning | critical"
+}
+```
+
+---
+
+## 5. Processus de Review
 
 1. Une fois le développement terminé, ouvrez une **Pull Request (PR)** vers la branche `develop`.
 2. La **CI (GitHub Actions)** va vérifier automatiquement le build et la qualité du code.
@@ -57,7 +79,7 @@ Pour garantir la parité des environnements, l'usage de **Docker** est obligatoi
 
 ---
 
-## 5. Gestion de Projet
+## 6. Gestion de Projet
 
 - **Estimation :** Chaque tâche doit avoir une valeur dans le champ "Estimation" avant d'être passée en `In Progress`.
 - **Labels :** Utilisez systématiquement les labels `Front-end`, `Back-end` ou `Fullstack` pour permettre le filtrage du board.
