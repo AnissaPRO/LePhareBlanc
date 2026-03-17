@@ -6,40 +6,44 @@ const { Client } = require('pg');
 const app = express();
 const PORT = 8000;
 
-// Middleware pour lire le JSON 
+// Middleware pour lire le JSON
 app.use(express.json());
 
 // --- CONFIGURATION BASE DE DONNÉES ---
-// On se connecte au service "db" défini dans ton docker-compose
+// On se connecte au service "db" défini dans le docker-compose
 const client = new Client({
-    connectionString: 'postgres://user:password@db:5432/user'
+  connectionString: 'postgres://user:password@db:5432/postgres',
 });
 
-client.connect()
-    .then(() => {
-        console.log("CONNEXION RÉUSSIE : Le Backend parle à PostgreSQL !");
-        return client.query('CREATE TABLE IF NOT EXISTS test_db (id SERIAL PRIMARY KEY, message TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)');
-    })
-    .then(() => console.log("Table 'test_db' prête."))
-    .catch(err => console.error("ERREUR CONNEXION DB :", err.stack));
+client
+  .connect()
+  .then(() => {
+    console.log('CONNEXION RÉUSSIE : Le Backend parle à PostgreSQL !');
+    return client.query(
+      'CREATE TABLE IF NOT EXISTS test_db (id SERIAL PRIMARY KEY, message TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)',
+    );
+  })
+  .then(() => console.log("Table 'test_db' prête."))
+  .catch((err) => console.error('ERREUR CONNEXION DB :', err.stack));
 
 // --- CONFIGURATION SWAGGER ---
 const swaggerOptions = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'API Le Phare Blanc',
-            version: '1.0.0',
-            description: 'Documentation POC - Coordination Front-Back & Persistance SQL',
-        },
-        servers: [
-            {
-                url: `http://localhost:${PORT}`,
-                description: 'Serveur Local (Docker)',
-            },
-        ],
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Le Phare Blanc',
+      version: '1.0.0',
+      description:
+        'Documentation POC - Coordination Front-Back & Persistance SQL',
     },
-    apis: [__filename], 
+    servers: [
+      {
+        url: `http://localhost:${PORT}`,
+        description: 'Serveur Local (Docker)',
+      },
+    ],
+  },
+  apis: [__filename],
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
@@ -57,7 +61,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *         description: Succès
  */
 app.get('/', (req, res) => {
-    res.send(`
+  res.send(`
         <h1>API Le Phare Blanc</h1>
         <p>Statut : Opérationnel</p>
         <p>Accéder à la <a href="/api-docs">Documentation Swagger (UI)</a></p>
@@ -83,16 +87,21 @@ app.get('/', (req, res) => {
  *         description: Message enregistré en base !
  */
 app.post('/db-test', async (req, res) => {
-    try {
-        const { message } = req.body;
-        const result = await client.query('INSERT INTO test_db (message) VALUES ($1) RETURNING *', [message]);
-        res.status(201).json({
-            success: true,
-            data: result.rows[0]
-        });
-    } catch (err) {
-        res.status(500).json({ error: "Erreur lors de l'insertion SQL", details: err.message });
-    }
+  try {
+    const { message } = req.body;
+    const result = await client.query(
+      'INSERT INTO test_db (message) VALUES ($1) RETURNING *',
+      [message],
+    );
+    res.status(201).json({
+      success: true,
+      data: result.rows[0],
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .json({ error: "Erreur lors de l'insertion SQL", details: err.message });
+  }
 });
 
 /**
@@ -105,15 +114,15 @@ app.post('/db-test', async (req, res) => {
  *         description: OK
  */
 app.get('/status', (req, res) => {
-    res.json({ 
-        status: "ok", 
-        message: "Le Phare Blanc répond",
-        timestamp: new Date()
-    });
+  res.json({
+    status: 'ok',
+    message: 'Le Phare Blanc répond',
+    timestamp: new Date(),
+  });
 });
 
 // --- LANCEMENT DU SERVEUR ---
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`SERVEUR DÉMARRÉ SUR LE PORT ${PORT}`);
-    console.log(`SWAGGER : http://localhost:${PORT}/api-docs`);
+  console.log(`SERVEUR DÉMARRÉ SUR LE PORT ${PORT}`);
+  console.log(`SWAGGER : http://localhost:${PORT}/api-docs`);
 });
