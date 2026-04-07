@@ -1,0 +1,80 @@
+name: Reverse Merge on Conflict
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-and-reverse-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check for merge conflict and reverse merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          FEATURE_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "🔍 Checking merge: $FEATURE_BRANCH → $BASE_BRANCH"
+
+          git fetch origin "$BASE_BRANCH" "$FEATURE_BRANCH"
+          git checkout "origin/$FEATURE_BRANCH"
+
+          # Try the merge in a temporary detached state to detect conflicts
+          if git merge --no-commit --no-ff "origin/$BASE_BRANCH" 2>/dev/null; then
+            echo "No conflict detected"
+            git merge --abort 2>/dev/null || true
+            exit 0
+          fi
+
+          echo "Conflict detected between $FEATURE_BRANCH and $BASE_BRANCH"
+          git merge --abort
+
+          # Reverse merge: push base branch into feature branch
+          git checkout -B "$FEATURE_BRANCH" "origin/$FEATURE_BRANCH"
+          if git merge --no-ff "origin/$BASE_BRANCH" -m "chore: merge $BASE_BRANCH into $FEATURE_BRANCH to resolve conflicts"; then
+            echo "Reverse merge succeeded automatically."
+            git push origin "$FEATURE_BRANCH"
+          else
+            # Conflict also exists in reverse — abort and notify
+            git merge --abort
+            echo "Manual resolution required."
+
+            gh pr comment "$PR_NUMBER" --body \
+              "🚨 **Merge conflict detected**
+
+              The merge of \`$FEATURE_BRANCH\` into \`$BASE_BRANCH\` has conflicts.
+              An automatic reverse merge of \`$BASE_BRANCH\` into \`$FEATURE_BRANCH\` was attempted but also requires manual resolution.
+
+              **Action required:** pull \`$BASE_BRANCH\` into your branch locally and resolve the conflicts:
+              \`\`\`bash
+              git checkout $FEATURE_BRANCH
+              git merge origin/$BASE_BRANCH
+              # resolve conflicts, then commit and push
+              \`\`\`"
+            exit 1
+          fi
+
+          gh pr comment "$PR_NUMBER" --body \
+            "🔄 **Reverse merge effectué**
+
+            Un conflit a été détecté lors du merge de \`$FEATURE_BRANCH\` → \`$BASE_BRANCH\`.
+            La branche \`$BASE_BRANCH\` a été automatiquement mergée dans \`$FEATURE_BRANCH\` pour résoudre le conflit en amont."
