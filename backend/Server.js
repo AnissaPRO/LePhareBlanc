@@ -6,6 +6,10 @@ const { Client } = require('pg');
 const app = express();
 const PORT = 8000;
 
+// --- CONFIGURATION CORS ---
+const cors = require('cors');
+app.use(cors()); // Autorise toutes les origines
+
 // Middleware pour lire le JSON
 app.use(express.json());
 
@@ -89,6 +93,10 @@ app.get('/', (req, res) => {
 app.post('/db-test', async (req, res) => {
   try {
     const { message } = req.body;
+
+    if (!message) {
+      throw new Error('Validation failed: Message is empty');
+    }
     const result = await client.query(
       'INSERT INTO test_db (message) VALUES ($1) RETURNING *',
       [message],
@@ -98,9 +106,14 @@ app.post('/db-test', async (req, res) => {
       data: result.rows[0],
     });
   } catch (err) {
-    res
-      .status(500)
-      .json({ error: "Erreur lors de l'insertion SQL", details: err.message });
+    const isDev = process.env.NODE_ENV === 'development';
+    res.status(500).json({
+      code: 'ERR_SQL_PERSISTENCE',
+      message: isDev
+        ? `Erreur SQL détaillée : ${err.message}`
+        : "Une erreur est survenue lors de l'enregistrement.",
+      details: isDev ? err.stack : 'Action non autorisée en production',
+    });
   }
 });
 
@@ -118,6 +131,28 @@ app.get('/status', (req, res) => {
     status: 'ok',
     message: 'Le Phare Blanc répond',
     timestamp: new Date(),
+  });
+});
+
+// --- GESTION 404 API ---
+// Cette route est placée après toutes les autres. Si aucune n'a matché, on tombe ici.
+app.use((req, res) => {
+  res.status(404).json({
+    code: 'ERR_NOT_FOUND',
+    status: 404,
+    message: `Désolé,la route API '${req.originalUrl}' n'existe pas sur ce serveur.`,
+    severity: 'warning',
+    suggestion: "Vérifiez l'URL ou consultez la documentation /api-docs",
+    timestamp: new Date(),
+  });
+});
+
+// --- MIDDLEWARE D'ERREUR GLOBAL (PROTECTION CRASH) ---
+app.use((err, req, res, next) => {
+  console.error(' [CRASH SERVEUR] ', err.stack);
+  res.status(500).json({
+    code: 'INTERNAL_SERVER_ERROR',
+    message: 'Le serveur a rencontré un problème inattendu.',
   });
 });
 
