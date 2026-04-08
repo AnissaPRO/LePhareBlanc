@@ -3,5 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ENV FAST_REFRESH=false
+ENV CI=true 
+ENV CHOKIDAR_USEPOLLING=true
 EXPOSE 3000
 CMD ["npm", "start"]
